@@ -31,6 +31,9 @@ services:
         
       - key: DB_POSTGRESDB_SSL
         value: "true"
+
+      - key: AIVEN_CA_PEM_B64
+        sync: false
         
       - key: DB_POSTGRESDB_SSL_CA
         sync: false   # we'll mount this secret file
