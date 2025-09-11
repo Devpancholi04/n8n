@@ -36,4 +36,6 @@ services:
         sync: false
         
       - key: DB_POSTGRESDB_SSL_CA
-        sync: false   # we'll mount this secret file
+        value: /etc/secrets/ca.pem   # we'll mount this secret file
+        
+   startCommand: mkdir -p /etc/secrets && echo $AIVEN_CA_PEM_B64 | base64 -d > /etc/secrets/ca.pem && n8n
