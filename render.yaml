@@ -33,4 +33,4 @@ services:
         value: "true"
         
       - key: DB_POSTGRESDB_SSL_CA
-        value: /etc/secrets/ca.pem   # we'll mount this secret file
+        value: /opt/render/project/secrets/ca.pem   # we'll mount this secret file
