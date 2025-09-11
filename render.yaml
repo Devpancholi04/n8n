@@ -30,6 +30,8 @@ services:
       # encrypted with the previous value.
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
+      - key: DB_TYPE
+        value: sqlite
 
       # These automatically populate connection details 
       # for the Render Postgres database defined below
