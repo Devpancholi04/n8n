@@ -1,8 +1,8 @@
 services:
   - type: web
-    plan: free
-    runtime: image
     name: n8n-service
+    env: docker
+    plan: free
     image:
       url: docker.io/n8nio/n8n:latest
 
@@ -10,32 +10,37 @@ services:
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
 
-      # Use Aiven Postgres instead of SQLite
+      # Use Aiven Postgres
       - key: DB_TYPE
         value: postgresdb
-        
+
       - key: DB_POSTGRESDB_HOST
         sync: false
-        
+
       - key: DB_POSTGRESDB_PORT
         sync: false
-        
+
       - key: DB_POSTGRESDB_DATABASE
         sync: false
-        
+
       - key: DB_POSTGRESDB_USER
         sync: false
-        
+
       - key: DB_POSTGRESDB_PASSWORD
-        sync: false 
-        
+        sync: false
+
       - key: DB_POSTGRESDB_SSL
         value: "true"
 
+      # Aiven CA BASE64
       - key: AIVEN_CA_PEM_B64
         sync: false
-        
+
+      # n8n SSL CA file path
       - key: DB_POSTGRESDB_SSL_CA
-        value: /etc/secrets/ca.pem   # we'll mount this secret file
-        
-   startCommand: mkdir -p /etc/secrets && echo $AIVEN_CA_PEM_B64 | base64 -d > /etc/secrets/ca.pem && n8n
+        value: /etc/secrets/ca.pem
+
+    startCommand: >
+      mkdir -p /etc/secrets &&
+      echo $AIVEN_CA_PEM_B64 | base64 -d > /etc/secrets/ca.pem &&
+      n8n
